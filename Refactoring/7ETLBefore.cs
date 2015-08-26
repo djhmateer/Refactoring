@@ -2,17 +2,17 @@
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
-using System.Runtime.CompilerServices;
 
 // ETL in a procedural way with fairly good naming
-// demonstrate breaking into smaller methods
-class ETLRefactored
+class ETLBefore
 {
     static void Main()
     {
+        // Extract (from file)
         var fileTextLines = File.ReadAllLines(@"..\..\quotesWithTitles.csv");
         foreach (var line in fileTextLines)
         {
+            // Transform
             // parse the csv line into the title and quote
             string[] values = line.Split(',');
 
@@ -22,6 +22,7 @@ class ETLRefactored
             string quote = values[1];
             Console.WriteLine("quote: {0}", quote);
 
+            // Load
             // insert into a database if doesn't exist already ie title not there
             string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Dev\Refactoring\Refactoring\Database1.mdf;Integrated Security=True";
             //Data Source = 
@@ -37,4 +38,5 @@ class ETLRefactored
             }
         }
     }
+
 }
