@@ -3,7 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 
-namespace Mateer.QuoteProcessorRefactored
+namespace Mateer.QuoteProcessor.Refactored
 {
     public class Quote
     {

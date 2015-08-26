@@ -1,27 +1,30 @@
 ﻿using System;
 using System.IO;
 
-class ReadFileRefactoredx
+namespace Mateer.ChangeNames.Refactored
 {
-    static void Main()
+    class ReadFile
     {
-        var fileTextLines = File.ReadAllLines(@"..\..\quotes.csv");
-        foreach (var line in fileTextLines)
+        static void Main()
         {
-            WriteToConsoleInAppropriateColour(line);
+            var fileTextLines = File.ReadAllLines(@"..\..\quotes.csv");
+            foreach (var line in fileTextLines)
+            {
+                WriteToConsoleInAppropriateColour(line);
+            }
         }
-    }
 
-    static void WriteToConsoleInAppropriateColour(string quote)
-    {
-        bool isLongQuote = false;
-        if (quote.Length > 70) isLongQuote = true;
+        static void WriteToConsoleInAppropriateColour(string quote)
+        {
+            bool isLongQuote = false;
+            if (quote.Length > 70) isLongQuote = true;
 
-        if (isLongQuote)
-            Console.ForegroundColor = ConsoleColor.Red;
-        else
-            Console.ForegroundColor = ConsoleColor.Green;
+            if (isLongQuote)
+                Console.ForegroundColor = ConsoleColor.Red;
+            else
+                Console.ForegroundColor = ConsoleColor.Green;
 
-        Console.WriteLine(quote);
+            Console.WriteLine(quote);
+        }
     }
 }

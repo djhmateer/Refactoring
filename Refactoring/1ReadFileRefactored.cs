@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 
-namespace Refactoring
+namespace Mateer.ReadFile.Refactored
 {
-    class ReadFileRefactored
+    class ReadFile
     {
         static void Main()
         {

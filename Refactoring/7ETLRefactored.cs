@@ -3,7 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 
-namespace Refactoring.TestsBefore
+namespace Mateer.ETL.Refactored
 {
     public class Quote
     {
@@ -11,7 +11,7 @@ namespace Refactoring.TestsBefore
         public string Body { get; set; }
     }
 
-    class ETLRefactored
+    class ETL
     {
         static void Main()
         {
