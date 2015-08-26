@@ -5,7 +5,7 @@ For refactoring talk
 
 # part1 simple refactoring
 
-##1 use VS tooling to format
+###1 use VS tooling to format
   Auto format to make readable
   Remove and tidy unused usings
 
