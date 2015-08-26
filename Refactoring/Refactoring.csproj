@@ -52,7 +52,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>Mateer.ReadFile.Program</StartupObject>
+    <StartupObject>Mateer.ETL.ETL</StartupObject>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />

@@ -5,6 +5,7 @@ using System.IO;
 
 namespace Mateer.QuoteProcessorCompose
 {
+    // Comments should be Why am I doing something, not how
     public class QuoteProcessorCompose
     {
         static void Main()
@@ -53,13 +54,13 @@ namespace Mateer.QuoteProcessorCompose
 
         public void Debug(string message)
         {
-            // Write to logging database table here
+            // TODOx: Write to logging database table
             Console.WriteLine("Debug: " + message);
         }
 
         public void Exception(string message)
         {
-            // Write to logging database table here
+            // TODOx: Write to logging database table here
             Console.WriteLine("Exception: " + message);
             _emailler.SendEmail("Exception: " + message);
         }
