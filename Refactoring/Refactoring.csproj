@@ -78,6 +78,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="1ReadFileBefore.cs" />
+    <Compile Include="910QuoteProcessorComposeTests.cs" />
+    <Compile Include="910QuoteProcessorCompose.cs" />
     <Compile Include="8QuoteProcessorRefactored.cs" />
     <Compile Include="8QuoteProcessorTests.cs" />
     <Compile Include="8QuoteProcessorBefore.cs" />
