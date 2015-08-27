@@ -1,3 +1,7 @@
+setup
+Tools options setttings, fonts
+output window, 14
+
 # Refactoring
 For refactoring talk
 

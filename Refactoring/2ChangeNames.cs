@@ -1,16 +1,21 @@
-﻿using System;
+﻿using System.Diagnostics;
 using System.IO;
 
 namespace Mateer.ChangeNames
 {
-    class ReadFile
+    // What does the class do?  (ReadFile)
+    public class Program
     {
-        static void Main()
+        // What does the method do?  (ReadFromAFileAndDisplayQuote)
+        public static void Main()
         {
-            var fileTextLines = File.ReadAllLines(@"..\..\quotes.csv");
-            foreach (var line in fileTextLines)
+            // What does the string array represent?  an array of lines of quotes from a file
+            // (lines)
+            string[] reading = File.ReadAllLines(@"..\..\quotes.csv");
+            for (int i = 0; i < reading.Length; i++)
             {
-                Console.WriteLine(line);
+                var readingaline = reading[i];
+                Debug.WriteLine(readingaline);
             }
         }
     }
