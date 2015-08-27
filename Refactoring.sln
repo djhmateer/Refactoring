@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documents", "Documents", "{
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuoteImporter", "QuoteImporter\QuoteImporter.csproj", "{71F19F3B-5F57-46C9-A924-A43E884368B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{F8289EEE-EFA5-465B-8F14-20DD8E951F86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8289EEE-EFA5-465B-8F14-20DD8E951F86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8289EEE-EFA5-465B-8F14-20DD8E951F86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71F19F3B-5F57-46C9-A924-A43E884368B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71F19F3B-5F57-46C9-A924-A43E884368B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71F19F3B-5F57-46C9-A924-A43E884368B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71F19F3B-5F57-46C9-A924-A43E884368B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

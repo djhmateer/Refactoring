@@ -4,7 +4,8 @@
     {
         static void Main()
         {
-            // make it easy to run different filesMateer.Program 
+            // make it easy to run different files
+            // Usually use TestDriven.NET now to run from the method.
 
             //1 Reformat
             //Reformat.Program.Main(null);
@@ -16,7 +17,7 @@
             //RSharpCommentsAndDeadCode.ETL.ReadFromAFileAndDisplayQuote();
 
             //6
-            MakeSmallerMethods.ETL.ReadFromAFileAndDisplayQuote();
+            //MakeSmallerMethods.ETL.ReadFromAFileAndDisplayQuote();
         }
     }
 }

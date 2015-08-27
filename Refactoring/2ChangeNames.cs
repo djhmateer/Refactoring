@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿using System;
 using System.IO;
 
 namespace Mateer.ChangeNames
@@ -15,7 +15,7 @@ namespace Mateer.ChangeNames
             for (int i = 0; i < reading.Length; i++)
             {
                 var readingaline = reading[i];
-                Debug.WriteLine(readingaline);
+                Console.WriteLine(readingaline);
             }
         }
     }

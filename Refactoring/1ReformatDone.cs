@@ -13,6 +13,7 @@ namespace Mateer.Reformat.Refactored
             {
                 Console.WriteLine(line);
             }
+            Console.WriteLine("Done!");
         }
     }
 }

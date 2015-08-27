@@ -3,16 +3,14 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 
-namespace Mateer.QuoteProcessorCompose
+namespace QuoteImporter
 {
-    // Comments should be Why am I doing something, not how
-    public class QuoteProcessorCompose
+    class Program
     {
         static void Main()
         {
             // composition root
             IEmailler emailler = new Emailler();
-
             ILog log = new Logger(emailler);
 
             try
@@ -38,11 +36,6 @@ namespace Mateer.QuoteProcessorCompose
         }
     }
 
-    public interface IEmailler
-    {
-        void SendEmail(string body);
-    }
-
     public class Logger : ILog
     {
         private readonly IEmailler _emailler;
@@ -66,24 +59,18 @@ namespace Mateer.QuoteProcessorCompose
         }
     }
 
-    public interface ILog
-    {
-        void Debug(string message);
-        void Exception(string message);
-    }
-
     public class QuoteProcessorService
     {
-        private readonly ILog _log;
+        private readonly ILog log;
 
         public QuoteProcessorService(ILog log)
         {
-            _log = log;
+            this.log = log;
         }
 
         public void RunImporter()
         {
-            _log.Debug("RunImport start");
+            log.Debug("RunImport start");
             // Extract (from file)
             var fileTextLines = File.ReadAllLines(@"..\..\quotesWithTitles.csv");
             foreach (var line in fileTextLines)
@@ -96,7 +83,7 @@ namespace Mateer.QuoteProcessorCompose
                 // insert into a database if doesn't exist already ie title not there
                 InsertQuoteIntoDatabase(quote);
             }
-            _log.Debug("RunImport end");
+            log.Debug("RunImport end");
         }
 
         public Quote ParseLine(string line)

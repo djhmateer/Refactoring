@@ -36,6 +36,8 @@ For refactoring talk
 ###6 break long methods into smaller
 	extract method - ParseLine
 	out parameter - codesmell
+	connectionString
+
 	extract method - InsertQuoteIntoDatabase
 
 ###7 Put in tests!!!

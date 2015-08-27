@@ -1,36 +1,8 @@
 ﻿using System;
 using Xunit;
 
-namespace Mateer.QuoteProcessorCompose
+namespace QuoteImporter
 {
-    public class FakeLogger : ILog
-    {
-        private readonly IEmailler _emailler;
-
-        public FakeLogger(IEmailler emailler)
-        {
-            _emailler = emailler;
-        }
-
-        public void Debug(string message)
-        {
-            Console.WriteLine("FakeLogger Debug: " + message);
-        }
-
-        public void Exception(string message)
-        {
-            Console.WriteLine("FakeLogger Exception: " + message);
-        }
-    }
-
-    public class FakeEmailler : IEmailler
-    {
-        public void SendEmail(string body)
-        {
-            Console.WriteLine("FakeEmailler: " + body);
-        }
-    }
-
     public class QuoteProcessorServiceTests
     {
         private readonly QuoteProcessorService _service;
@@ -73,4 +45,3 @@ namespace Mateer.QuoteProcessorCompose
         }
     }
 }
-

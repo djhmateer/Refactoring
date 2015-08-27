@@ -1,32 +1,46 @@
 ﻿using System;
-using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 
 namespace Mateer.MakeSmallerMethods.Refactored
 {
-    public class Quote
+    public class ETL
     {
-        public string Title { get; set; }
-        public string Body { get; set; }
-    }
-
-    class ETL
-    {
-        static void Main()
+        public static void ReadFromAFileAndDisplayQuote()
         {
-            // Extract (from file)
             var fileTextLines = File.ReadAllLines(@"..\..\quotesWithTitles.csv");
             foreach (var line in fileTextLines)
             {
-                // Transform
-                // parse the csv line into the title and quote
+                // Extract method, ParseLine
                 var quote = ParseLine(line);
 
-                // Load
-                // insert into a database if doesn't exist already ie title not there
                 InsertQuoteIntoDatabase(quote);
             }
+        }
+
+        private static void InsertQuoteIntoDatabase(Quote quote)
+        {
+            var connectionString = GetConnectionString();
+            // TODOx: insert into database if doesn't exist already ie title not there
+            using (var connection = new SqlConnection(connectionString))
+            {
+                using (var cmd = new SqlCommand("INSERT INTO Quotes (Title, Text) VALUES (@Title, @Quote)", connection))
+                {
+                    cmd.Parameters.AddWithValue("@Title", quote.Title);
+                    cmd.Parameters.AddWithValue("@Quote", quote.Body);
+                    connection.Open();
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private static string GetConnectionString()
+        {
+            var path = Environment.CurrentDirectory;
+            var appPath = path.Split(new[] { "bin" }, StringSplitOptions.None)[0];
+            var connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + appPath +
+                                   @"Database1.mdf;Integrated Security=True";
+            return connectionString;
         }
 
         private static Quote ParseLine(string line)
@@ -34,36 +48,20 @@ namespace Mateer.MakeSmallerMethods.Refactored
             string[] values = line.Split(',');
 
             string title = values[0];
-            Console.WriteLine("title: {0}", title);
+            var quote = new Quote { Title = title };
 
-            string body = values[1];
-            Console.WriteLine("quote: {0}", body);
+            Console.WriteLine("title: " + quote.Title);
 
-            Quote quote = new Quote
-            {
-                Title = title,
-                Body = body
-            };
-
+            var body = values[1];
+            quote.Body = body;
+            Console.WriteLine("body: " + quote.Body);
             return quote;
-        }
-
-        private static void InsertQuoteIntoDatabase(Quote quote)
-        {
-            string connectionString =
-                @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Dev\Refactoring\Refactoring\Database1.mdf;Integrated Security=True";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand("INSERT INTO Quotes (Title, Text) VALUES (@Title, @Quote)");
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = connection;
-                cmd.Parameters.AddWithValue("@Title", quote.Title);
-                cmd.Parameters.AddWithValue("@Quote", quote.Body);
-                connection.Open();
-                cmd.ExecuteNonQuery();
-            }
         }
     }
 
-
+    public class Quote
+    {
+        public String Title { get; set; }
+        public String Body { get; set; }
+    }
 }
