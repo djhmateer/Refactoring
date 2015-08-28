@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.IO;
 
 namespace Mateer.MakeSmallerMethods
@@ -16,10 +15,10 @@ namespace Mateer.MakeSmallerMethods
                 string[] values = line.Split(',');
 
                 string title = values[0];
-                Debug.WriteLine("title: " + title);
+                Console.WriteLine("title: " + title);
 
                 var body = values[1];
-                Debug.WriteLine("body: " + body);
+                Console.WriteLine("body: " + body);
 
                 var path = Environment.CurrentDirectory;
                 var appPath = path.Split(new[] {"bin"}, StringSplitOptions.None)[0];
