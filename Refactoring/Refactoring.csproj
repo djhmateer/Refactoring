@@ -87,7 +87,6 @@
     <Compile Include="2ChangeNamesRefactored.cs" />
     <Compile Include="2ChangeNames.cs" />
     <Compile Include="1ReformatDone.cs" />
-    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="1Reformat.cs" />
   </ItemGroup>

@@ -29,22 +29,6 @@ namespace Mateer.QuoteProcessor
             }
         }
 
-        private static void InsertQuoteIntoDatabase(Quote quote)
-        {
-            string connectionString =
-                @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Dev\Refactoring\Refactoring\Database1.mdf;Integrated Security=True";
-            using (SqlConnection connection = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand("INSERT INTO Quotes (Title, Text) VALUES (@Title, @Quote)");
-                cmd.CommandType = CommandType.Text;
-                cmd.Connection = connection;
-                cmd.Parameters.AddWithValue("@Title", quote.Title);
-                cmd.Parameters.AddWithValue("@Quote", quote.Body);
-                connection.Open();
-                cmd.ExecuteNonQuery();
-            }
-        }
-
         private static Quote ParseLine(string line)
         {
             string[] values = line.Split(',');
@@ -62,6 +46,22 @@ namespace Mateer.QuoteProcessor
             };
 
             return quote;
+        }
+
+        private static void InsertQuoteIntoDatabase(Quote quote)
+        {
+            string connectionString =
+                @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Dev\Refactoring\Refactoring\Database1.mdf;Integrated Security=True";
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("INSERT INTO Quotes (Title, Text) VALUES (@Title, @Quote)");
+                cmd.CommandType = CommandType.Text;
+                cmd.Connection = connection;
+                cmd.Parameters.AddWithValue("@Title", quote.Title);
+                cmd.Parameters.AddWithValue("@Quote", quote.Body);
+                connection.Open();
+                cmd.ExecuteNonQuery();
+            }
         }
     }
 }

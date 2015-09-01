@@ -1,16 +1,34 @@
 # Refactoring Basics
 davemateer@gmail.com
+github.com/djhmateer/refactoring (links at end too)
+- plan
+ - define
+ - simple local steps..building on a quote loader
+ - architectural..finshing with a well factored quote loader
 
-github.com/djhmateer/refactoring (link at end too)
+### please heckle anytime!  I want to know what you're thinking!
+
+###whiteboard
 
 ##What is Refactoring?
 >Refactoring is the process of making code better
 >without modifying its external behavior. 
 
-###What do I mean as 'better'?
+
+
+
+
+###What do I mean by 'better'?
 - Easier to understand (less WTF's per minute)
 - Easier to test
 - More pleasing
+
+
+
+
+
+
+
 
 # Part 1 - Simple Refactoring Techniques
 
@@ -47,17 +65,23 @@ github.com/djhmateer/refactoring (link at end too)
 
 	extract method - InsertQuoteIntoDatabase
 
-###7 Put in tests!!!
+###8 Put in tests!!!
 	nuget xunit, xunit.runner
 	can we test the static methods (poor mans functional programming?)
 		as they have no dependencies
 
 		Suggestion into separate classes
 
-###8 code repeated >2 times refactor 
+Summary so far
+  - smaller methods
+  - testable app
 
+..want to drive out functionality
+..with logging, emailling, and more tests
 
 # Part2 - design
+visio
+
 
 ###10 Favour composition
     why?
@@ -82,7 +106,17 @@ www.github.com/djhmateer/refactoring
 
 
 
-# Thoughts
+# Thoughts???
+
+
+
+
+
+
+
+
+
+
 
 ### Show other programmers your code!
   The act of explaining...

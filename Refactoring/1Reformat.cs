@@ -6,8 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-// Ctrl K D
-// Alt E I O A
+// Ctrl K D (Edit, Advanced)
+// Alt E I O A (Edit, Intellisense..)
 namespace Mateer.Reformat 
 {
 public class Program

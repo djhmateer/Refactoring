@@ -21,7 +21,6 @@ namespace Mateer.QuoteProcessor.Refactored
             {
                 // Transform
                 // parse the csv line into the title and quote
-
                 var quote = ParseLine(line);
 
                 // Load

@@ -31,7 +31,9 @@ namespace Mateer.QuoteProcessor.Refactored
         {
             string line = "";
 
-            Assert.Throws<ApplicationException>(() => QuoteProcessor.ParseLine(line));
+            Assert.Throws<ApplicationException>(
+                () => QuoteProcessor.ParseLine(line)
+                );
         }
 
         [Fact]
@@ -39,7 +41,9 @@ namespace Mateer.QuoteProcessor.Refactored
         {
             string line = "asdf,asdf,asdf";
 
-            Assert.Throws<ApplicationException>(() => QuoteProcessor.ParseLine(line));
+            Assert.Throws<ApplicationException>(
+                () => QuoteProcessor.ParseLine(line)
+                );
         }
     }
 

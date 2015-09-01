@@ -24,6 +24,7 @@ namespace Mateer.RSharpCommentsAndDeadCode
         /// </summary>
         public static void ReadFromAFileAndDisplayQuote()
         {
+            // I see dead code...
             var x = 1;
             // Reading all the lines of the text file
             var fileTextLines = File.ReadAllLines(@"..\..\quotesWithTitles.csv");

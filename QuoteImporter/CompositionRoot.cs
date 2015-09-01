@@ -11,8 +11,8 @@ namespace QuoteImporter
 
             try
             {
-                var service = new QuoteProcessor(log);
-                service.RunImporter();
+                var processor = new QuoteProcessor(log);
+                processor.RunImporter();
             }
             // If cannot be handled should bubble up to the top and application stop
             catch (Exception ex)

@@ -20,7 +20,6 @@ namespace Mateer.MakeSmallerMethods
                 var body = values[1];
                 Console.WriteLine("body: " + body);
 
-
                 // InsertQuoteIntoDatabase
                 // GetConnectionString
                 var path = Environment.CurrentDirectory;

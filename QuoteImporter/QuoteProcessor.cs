@@ -37,10 +37,10 @@ namespace QuoteImporter
                 throw new ApplicationException("Unknown state - too many commas");
 
             string title = values[0];
-            Console.WriteLine("title: {0}", title);
+            log.Debug("title: {0}" + title);
 
             string body = values[1];
-            Console.WriteLine("quote: {0}", body);
+            log.Debug("quote: {0}" + body);
 
             var quote = new Quote
             {
