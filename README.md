@@ -1,4 +1,4 @@
-#Introduction to Refactoring
+# Refactoring Basics
 davemateer@gmail.com
 
 github.com/djhmateer/refactoring (link at end too)
@@ -12,7 +12,7 @@ github.com/djhmateer/refactoring (link at end too)
 - Easier to test
 - More pleasing
 
-# Part1 - Simple Refactoring
+# Part 1 - Simple Refactoring Techniques
 
 ###0 Source control
 
@@ -81,6 +81,11 @@ github.com/djhmateer/refactoring (link at end too)
 www.github.com/djhmateer/refactoring
 
 
+
+# Thoughts
+
+### Show other programmers your code!
+  The act of explaining...
 
 ###12.5 CQS?
 
