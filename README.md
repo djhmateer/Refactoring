@@ -1,5 +1,6 @@
 #Introduction to Refactoring
-DaveMateer@gmail.com
+davemateer@gmail.com
+
 github.com/djhmateer/refactoring (link at end too)
 
 ##What is Refactoring?
