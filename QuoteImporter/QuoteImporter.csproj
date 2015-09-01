@@ -59,8 +59,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IEmailler.cs" />
-    <Compile Include="ILog.cs" />
+    <Compile Include="Interfaces\IEmailler.cs" />
+    <Compile Include="Interfaces\ILog.cs" />
+    <Compile Include="QuoteProcessor.cs" />
     <Compile Include="Tests\QuoteProcessorTests.cs" />
     <Compile Include="Tests\FakeEmailler.cs" />
     <Compile Include="Tests\FakeLogger.cs" />

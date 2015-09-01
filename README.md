@@ -1,24 +1,25 @@
 #Introduction to Refactoring
+DaveMateer@gmail.com
+github.com/djhmateer/refactoring (link at end too)
 
 ##What is Refactoring?
->Refactoring is the process of restructuring
->existing code without changing its external behavior. 
->ie making it 'better'
+>Refactoring is the process of making code better
+>without modifying its external behavior. 
 
 ###What do I mean as 'better'?
 - Easier to understand (less WTF's per minute)
 - Easier to test
 - More pleasing
 
-# Part1 simple refactoring
+# Part1 - Simple Refactoring
 
 ###0 Source control
 
-###1 use VS tooling to format
+###1 VS tooling to format
   Auto format to make readable
   Remove and tidy unused usings
 
-###2 change names mercilessly!
+###2 Rename mercilessly!
   To make more understandable
      Variables - noun
      Methods - verb eg writeToLog
@@ -38,7 +39,7 @@
 ###5 Dead code
    Must die!
 
-###6 break long methods into smaller
+###6 Break long methods into smaller
 	extract method - ParseLine
 	out parameter - codesmell
 	connectionString
@@ -55,7 +56,7 @@
 ###8 code repeated >2 times refactor 
 
 
-# Part2 design
+# Part2 - design
 
 ###10 Favour composition
     why?
@@ -67,6 +68,18 @@
 ###11 Exception handling bubble up
 
 ###12 Log mercilessly to console and prod
+
+
+# End Summary
+- Use Source Control
+- Rename mercilessly!
+- Make things smaller
+- Test
+- Favour composition
+
+www.github.com/djhmateer/refactoring
+
+
 
 ###12.5 CQS?
 
