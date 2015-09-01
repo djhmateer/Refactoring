@@ -4,11 +4,11 @@ namespace QuoteImporter
 {
     public class FakeLogger : ILog
     {
-        private readonly IEmailler _emailler;
+        private readonly IEmailler emailler;
 
         public FakeLogger(IEmailler emailler)
         {
-            _emailler = emailler;
+            this.emailler = emailler;
         }
 
         public void Debug(string message)

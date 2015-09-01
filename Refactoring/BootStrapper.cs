@@ -18,6 +18,9 @@
 
             //6
             //MakeSmallerMethods.ETL.ReadFromAFileAndDisplayQuote();
+
+            QuoteProcessor.ETL.Main();
+            QuoteProcessor.Refactored.QuoteProcessor.Main();
         }
     }
 }

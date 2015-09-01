@@ -13,7 +13,7 @@ namespace Mateer.QuoteProcessor.Refactored
 
     public class QuoteProcessor
     {
-        static void Main()
+        public static void Main()
         {
             // Extract (from file)
             var fileTextLines = File.ReadAllLines(@"..\..\quotesWithTitles.csv");

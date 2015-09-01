@@ -4,7 +4,6 @@ using System.IO;
 
 // R# Suggestions, Comments and DeadCode
 // Comments - make things as easy as possible for the code to be maintained
-
 namespace Mateer.RSharpCommentsAndDeadCode
 {
     /// <summary>
@@ -25,6 +24,7 @@ namespace Mateer.RSharpCommentsAndDeadCode
         /// </summary>
         public static void ReadFromAFileAndDisplayQuote()
         {
+            var x = 1;
             // Reading all the lines of the text file
             var fileTextLines = File.ReadAllLines(@"..\..\quotesWithTitles.csv");
             for (int i = 0; i < fileTextLines.Length; i++)

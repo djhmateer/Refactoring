@@ -20,6 +20,9 @@ namespace Mateer.MakeSmallerMethods
                 var body = values[1];
                 Console.WriteLine("body: " + body);
 
+
+                // InsertQuoteIntoDatabase
+                // GetConnectionString
                 var path = Environment.CurrentDirectory;
                 var appPath = path.Split(new[] {"bin"}, StringSplitOptions.None)[0];
                 var connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + appPath +

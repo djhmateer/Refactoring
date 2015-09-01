@@ -61,15 +61,16 @@
   <ItemGroup>
     <Compile Include="IEmailler.cs" />
     <Compile Include="ILog.cs" />
-    <Compile Include="Tests\QuoteProcessorServiceTests.cs" />
+    <Compile Include="Tests\QuoteProcessorTests.cs" />
     <Compile Include="Tests\FakeEmailler.cs" />
     <Compile Include="Tests\FakeLogger.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="CompositionRoot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="quotesWithTitles.csv" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

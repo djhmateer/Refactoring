@@ -8,12 +8,10 @@ namespace Mateer.MakeSmallerMethods.Refactored
     {
         public static void ReadFromAFileAndDisplayQuote()
         {
-            var fileTextLines = File.ReadAllLines(@"..\..\quotesWithTitles.csv");
-            foreach (var line in fileTextLines)
+            var lines = File.ReadAllLines(@"..\..\quotesWithTitles.csv");
+            foreach (var line in lines)
             {
-                // Extract method, ParseLine
                 var quote = ParseLine(line);
-
                 InsertQuoteIntoDatabase(quote);
             }
         }
@@ -61,7 +59,7 @@ namespace Mateer.MakeSmallerMethods.Refactored
 
     public class Quote
     {
-        public String Title { get; set; }
-        public String Body { get; set; }
+        public string Title { get; set; }
+        public string Body { get; set; }
     }
 }

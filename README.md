@@ -1,13 +1,18 @@
-setup
-Tools options setttings, fonts
-output window, 14
+#Introduction to Refactoring
 
-# Refactoring
-For refactoring talk
+##What is Refactoring?
+>Refactoring is the process of restructuring
+>existing code without changing its external behavior. 
+>ie making it 'better'
 
-###0 Source control
+###What do I mean as 'better'?
+- Easier to understand (less WTF's per minute)
+- Easier to test
+- More pleasing
 
 # Part1 simple refactoring
+
+###0 Source control
 
 ###1 use VS tooling to format
   Auto format to make readable
@@ -50,8 +55,6 @@ For refactoring talk
 ###8 code repeated >2 times refactor 
 
 
-###9 CQS?
-
 # Part2 design
 
 ###10 Favour composition
@@ -64,6 +67,8 @@ For refactoring talk
 ###11 Exception handling bubble up
 
 ###12 Log mercilessly to console and prod
+
+###12.5 CQS?
 
 ###13 Maybe<T> to prevent need for null reference checking
 

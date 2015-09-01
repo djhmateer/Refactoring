@@ -3,15 +3,15 @@ using Xunit;
 
 namespace QuoteImporter
 {
-    public class QuoteProcessorServiceTests
+    public class QuoteProcessorTests
     {
-        private readonly QuoteProcessorService _service;
+        private readonly QuoteProcessor processor;
 
-        public QuoteProcessorServiceTests()
+        public QuoteProcessorTests()
         {
             IEmailler fakeEmailler = new FakeEmailler();
             ILog fakeLogger = new FakeLogger(fakeEmailler);
-            _service = new QuoteProcessorService(fakeLogger);
+            processor = new QuoteProcessor(fakeLogger);
         }
 
         [Fact]
@@ -21,7 +21,7 @@ namespace QuoteImporter
             string line = "Basic,Programming in Basic causes brain damage - Edsger Wybe Dijkstra";
 
             // Act
-            var result = _service.ParseLine(line);
+            var result = processor.ParseLine(line);
 
             // Assert
             Assert.Equal("Basic", result.Title);
@@ -33,7 +33,7 @@ namespace QuoteImporter
         {
             string line = "";
 
-            Assert.Throws<ApplicationException>(() => _service.ParseLine(line));
+            Assert.Throws<ApplicationException>(() => processor.ParseLine(line));
         }
 
         [Fact]
@@ -41,7 +41,7 @@ namespace QuoteImporter
         {
             string line = "asdf,asdf,asdf";
 
-            Assert.Throws<ApplicationException>(() => _service.ParseLine(line));
+            Assert.Throws<ApplicationException>(() => processor.ParseLine(line));
         }
     }
 }
