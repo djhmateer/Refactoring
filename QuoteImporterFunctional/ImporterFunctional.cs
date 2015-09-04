@@ -1,41 +1,51 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 
-namespace QuoteImporter
+namespace QuoteImporterFunctional
 {
-    public class QuoteProcessor
+    public static class ImporterFunctional
     {
-        private readonly ILog log;
-
-        public QuoteProcessor(ILog log)
+        // Functional style of the QuoteImporter app
+        private static void Main()
         {
-            this.log = log;
+            Action run = Run;
+            run();
         }
 
-        public void RunImporter()
+        private static void Run()
         {
-            log.Debug("RunImport start");
-            IEnumerable<string> lines = ReadFileListOfLines();
+            // pass in the 'functions' to RunQuoteImporter that are its dependencies
+
+            // what is ReadFileListOfLines needs the log?
+            RunQuoteImporter(Log, ReadFileListOfLines, ParseLine, InsertQuoteIntoDatabase);
+        }
+
+        public static void RunQuoteImporter(Action<string> log,
+            Func<IEnumerable<string>> readFileListOfLines,
+            Func<string, Quote> parseLine,
+            Action<Quote> insertQuoteIntoDatabase)
+        {
+            log("Start");
+            IEnumerable<string> lines = readFileListOfLines();
             foreach (var line in lines)
             {
-                var quote = ParseLine(line);
-                InsertQuoteIntoDatabase(quote);
+                var quote = parseLine(line);
+                insertQuoteIntoDatabase(quote);
             }
-            log.Debug("RunImport end");
+            log("End");
         }
 
-        private IEnumerable<string> ReadFileListOfLines()
+        public static IEnumerable<string> ReadFileListOfLines()
         {
             string[] fileTextLines = File.ReadAllLines(@"..\..\quotesWithTitles.csv");
             return fileTextLines.ToList();
         }
 
-        public Quote ParseLine(string line)
+        public static Quote ParseLine(string line)
         {
             string[] values = line.Split(',');
 
@@ -46,10 +56,10 @@ namespace QuoteImporter
                 throw new ApplicationException("Unknown state - too many commas");
 
             string title = values[0];
-            log.Debug("title: {0}" + title);
+            //log.Debug("title: {0}" + title);
 
             string body = values[1];
-            log.Debug("quote: {0}" + body);
+            //log.Debug("quote: {0}" + body);
 
             var quote = new Quote
             {
@@ -60,7 +70,7 @@ namespace QuoteImporter
             return quote;
         }
 
-        private void InsertQuoteIntoDatabase(Quote quote)
+        private static void InsertQuoteIntoDatabase(Quote quote)
         {
             string connectionString =
                 @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Dev\Refactoring\Refactoring\Database1.mdf;Integrated Security=True";
@@ -74,6 +84,11 @@ namespace QuoteImporter
                 connection.Open();
                 cmd.ExecuteNonQuery();
             }
+        }
+
+        public static void Log(string message)
+        {
+            Console.WriteLine("log: {0}", message);
         }
     }
 }
