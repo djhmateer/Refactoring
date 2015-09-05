@@ -47,12 +47,12 @@ namespace QuoteImporterFunctional
             Console.WriteLine(resultA);
 
             // Action is a delegate.  Doesn't return a value
-            // Passing the named method into RunQuoteImporter
+            // Passing the named method into QuoteImporter
             Action runProcessing = () => RunProcessing(Log);
             runProcessing();
 
-            // passing RunQuoteImporter method into r
-            // Passing lambda expression (anonymous method) into RunQuoteImporter
+            // passing QuoteImporter method into r
+            // Passing lambda expression (anonymous method) into QuoteImporter
             Action runProcessing2 = () => RunProcessing(x => Console.WriteLine($"log2: {x}"));
             runProcessing2();
         }

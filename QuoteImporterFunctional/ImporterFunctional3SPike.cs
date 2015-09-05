@@ -1,53 +1,65 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
 
 namespace QuoteImporterFunctional
 {
-    public class ImporterFunctional
+    public static class ImporterFunctional3Spike
     {
         // Functional style of the QuoteImporter app
         private static void Main()
         {
-            // Passing in a lambda expression (anonymous function) to Action run
-            // Compose the Functions together (without running them)
-
-            // ReadFileListOfLines needs a Log
-            Func<IEnumerable<string>> readFileListOfLines = () => ReadFileListOfLines(Log);
-            Action run = () => QuoteImporter(Log, readFileListOfLines, ParseLine, InsertQuoteIntoDatabase);
-            // Run QuoteImporter
+            // 2 levels - works
+            //Action run = () => RunFileReader(Log);
+            Action runFileReader = () => RunFileReader(Log);
+            // 3 levels - compiles
+            Action run = () => ThingThatNeedsRunFileReader(runFileReader);
             run();
         }
 
-        // 1. Takes an Action that takes a string
-        // 2. Takes a Function which returns a list of strings
-        // 3. Takes a Function with an input of string, which returns a Quote
-        // 4. Takes an Action which takes a Quote
-        public static void QuoteImporter(Action<string> log,
-            Func<IEnumerable<string>> readFileListOfLines,
-            Func<string, Quote> parseLine,
-            Action<Quote> insertQuoteIntoDatabase)
+        public static void ThingThatNeedsRunFileReader(Action runFileReader)
         {
-            log("Start");
-            IEnumerable<string> lines = readFileListOfLines();
-            foreach (var line in lines)
-            {
-                var quote = parseLine(line);
-                insertQuoteIntoDatabase(quote);
-            }
-            log("End");
+            // want to do all business logic here..
+            runFileReader();
         }
+
+        // Passing in a log function with no return (Action) which has a string parameter
+        public static void RunFileReader(Action<string> log)
+        {
+            Console.WriteLine("RunFileReader");
+            log("RunFileReader");
+        }
+
+        public static void Log(string message)
+        {
+            Console.WriteLine("log: {0}", message);
+        }
+
+
+        //public static void QuoteImporter(Action<string> log,
+        //    Func<Action<string>,IEnumerable<string>> readFileListOfLines,
+        //    Func<string, Quote> parseLine,
+        //    Action<Quote> insertQuoteIntoDatabase)
+        //{
+        //    log("Start");
+        //    IEnumerable<string> lines = readFileListOfLines();
+        //    foreach (var line in lines)
+        //    {
+        //        var quote = parseLine(line);
+        //        insertQuoteIntoDatabase(quote);
+        //    }
+        //    log("End");
+        //}
 
         public static IEnumerable<string> ReadFileListOfLines(Action<string> log)
         {
-            log("Start ReadFileListOfLines");
+            log("Start read");
             string[] fileTextLines = File.ReadAllLines(@"..\..\quotesWithTitles.csv");
-            log("End ReadFileListOfLines");
+            log("End read");
             return fileTextLines.ToList();
         }
 
@@ -90,11 +102,6 @@ namespace QuoteImporterFunctional
                 connection.Open();
                 cmd.ExecuteNonQuery();
             }
-        }
-
-        public static void Log(string message)
-        {
-            Console.WriteLine("log: {0}", message);
         }
     }
 }
