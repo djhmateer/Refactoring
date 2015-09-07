@@ -15,7 +15,8 @@ namespace Mateer.QuoteProcessor.Refactored
         public void ParseLine_AValidLine_ShouldReturnQuote()
         {
             // Arrange
-            string line = "Basic,Programming in Basic causes brain damage - Edsger Wybe Dijkstra";
+            string line = "Basic,Programming in Basic causes " +
+                          "brain damage - Edsger Wybe Dijkstra";
 
             // Act
             // ParseLine is static.. essentially a helper method/function
