@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace QuoteImporterFunctional
 {
@@ -12,6 +13,9 @@ namespace QuoteImporterFunctional
         // Functional style of the QuoteImporter app
         private static void Main()
         {
+            Action<string> thing = x => Console.WriteLine(x);
+            thing("hello");
+
             // Log is an Action with a string input
             Action<string> log = s => Log(s);
             // no side effects, so I can use the function whilst it is being composed and not being run
