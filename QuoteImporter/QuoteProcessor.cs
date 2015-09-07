@@ -1,7 +1,10 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Linq;
 
 namespace QuoteImporter
 {
@@ -17,13 +20,19 @@ namespace QuoteImporter
         public void RunImporter()
         {
             log.Debug("RunImport start");
-            var fileTextLines = File.ReadAllLines(@"..\..\quotesWithTitles.csv");
-            foreach (var line in fileTextLines)
+            IEnumerable<string> lines = ReadFileListOfLines();
+            foreach (var line in lines)
             {
                 var quote = ParseLine(line);
                 InsertQuoteIntoDatabase(quote);
             }
             log.Debug("RunImport end");
+        }
+
+        private IEnumerable<string> ReadFileListOfLines()
+        {
+            string[] fileTextLines = File.ReadAllLines(@"..\..\quotesWithTitles.csv");
+            return fileTextLines.ToList();
         }
 
         public Quote ParseLine(string line)
