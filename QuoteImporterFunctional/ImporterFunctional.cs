@@ -14,14 +14,19 @@ namespace QuoteImporterFunctional
         {
             // Log is an Action with a string input
             Action<string> log = s => Log(s);
+            // no side effects, so I can use the function whilst it is being composed and not being run
             log("Main start");
 
             // ReadFileListOfLines is a Function which **Takes an input..why works??** returns a List of strings
             Func<IEnumerable<string>> readFileListOfLines = () => ReadFileListOfLines(log);
+            //Func<Action<string>, IEnumerable<string>> readFileListOfLines = x => ReadFileListOfLines(log);
+
+            Func<string, Quote> parseLine = s => ParseLine(s);
+            Action<Quote> insertQuoteIntoDatabase = quote => InsertQuoteIntoDatabase(quote);
 
             // Compose the Functions together (without running them)
             // Passing in a lambda expression (anonymous function) to Action run
-            Action run = () => QuoteImporter(Log, readFileListOfLines, ParseLine, InsertQuoteIntoDatabase);
+            Action run = () => QuoteImporter(log, readFileListOfLines, parseLine, insertQuoteIntoDatabase);
             run();
             log("Main end");
         }
@@ -30,12 +35,15 @@ namespace QuoteImporterFunctional
         // 2. Takes a Function with no input**why does this work??, which returns a list of strings
         // 3. Takes a Function with a string input, which returns a Quote
         // 4. Takes an Action with a Quote input
+        //Func<Action<string>, IEnumerable<string>> readFileListOfLines,
         public static void QuoteImporter(Action<string> log,
             Func<IEnumerable<string>> readFileListOfLines,
             Func<string, Quote> parseLine,
             Action<Quote> insertQuoteIntoDatabase)
         {
             log("QuoteImporter Start");
+            // don't want to be passing in the log here again???
+            //IEnumerable<string> lines = readFileListOfLines(log);
             IEnumerable<string> lines = readFileListOfLines();
             foreach (var line in lines)
             {
