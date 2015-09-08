@@ -1,72 +1,37 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.IO;
 
 namespace QuoteImporterFunctional
 {
     public class ImporterFunctionalDecorator
     {
-        // Functional style of the QuoteImporter app
         private static void Main()
         {
-            // **Here - want to wraoe ReadFileListOfLines in a decorator so can log
+            // **Here - want to wrap QuoteImporter in a decorator so can log
 
-            Action run = () => QuoteImporter(ReadFileListOfLines, ParseLine, InsertQuoteIntoDatabase);
+            // Action is like a function which can take parameters but doesn't return anything.
+            // Passing in a 2 lambda expression (anonymous function) 
+            // 1. which console writes
+            // 2. Log
+            //Action run = () => QuoteImporter();
+            Action run = () => QuoteImporterLogger(() => QuoteImporter(), s => Log(s));
             run();
         }
 
-        // 1. Takes a Function with no input, which returns a list of strings
-        // 2. Takes a Function with a string input, which returns a Quote
-        // 3. Takes an Action with a Quote input
-        public static void QuoteImporter(
-            Func<IEnumerable<string>> readFileListOfLines,
-            Func<string, Quote> parseLine,
-            Action<Quote> insertQuoteIntoDatabase)
+        public static void QuoteImporterLogger(Action quoteImporter, Action<string> log)
         {
-            IEnumerable<string> lines = readFileListOfLines();
-            foreach (var line in lines)
-            {
-                var quote = parseLine(line);
-                insertQuoteIntoDatabase(quote);
-            }
+            log("Start QuoteImporter");
+            quoteImporter();
+            log("End QuoteImporter");
         }
 
-        // If there is a return type, then must be a Func<input, input..., output>
-        public static IEnumerable<string> ReadFileListOfLines()
+        public static void QuoteImporter()
         {
-            return File.ReadAllLines(@"..\..\quotesWithTitles.csv");
+            Console.WriteLine("QuoteImporter");
         }
 
-        public static Quote ParseLine(string line)
+        public static void Log(string message)
         {
-            string[] values = line.Split(',');
-
-            if (values.Length < 2)
-                throw new ApplicationException("Unknown state - too few commas");
-
-            if (values.Length > 2)
-                throw new ApplicationException("Unknown state - too many commas");
-
-            string title = values[0];
-            string body = values[1];
-
-            return new Quote { Title = title, Body = body };
-        }
-
-        private static void InsertQuoteIntoDatabase(Quote quote)
-        {
-            string connectionString =
-                @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Dev\Refactoring\Refactoring\Database1.mdf;Integrated Security=True";
-            using (var connection = new SqlConnection(connectionString))
-            {
-                var cmd = new SqlCommand("INSERT INTO Quotes (Title, Text) VALUES (@Title, @Quote)");
-                cmd.Connection = connection;
-                cmd.Parameters.AddWithValue("@Title", quote.Title);
-                cmd.Parameters.AddWithValue("@Quote", quote.Body);
-                connection.Open();
-                cmd.ExecuteNonQuery();
-            }
+            Console.WriteLine($"log: {message}");
         }
     }
 }
