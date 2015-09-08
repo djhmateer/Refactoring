@@ -60,10 +60,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FunctionalSpikes.cs" />
+    <Compile Include="ImporterFunctionalDecorator.cs" />
     <Compile Include="ImporterFunctionalSimpleArch.cs" />
     <Compile Include="ImporterFunctional.cs" />
     <Compile Include="ImporterFunctionalTests.cs" />
-    <Compile Include="ImporterFunctional3Spike.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Quote.cs" />
   </ItemGroup>

@@ -36,7 +36,6 @@ namespace QuoteImporterFunctional
             };
             note4("hello4");
 
-
             // Func is a generic type which encapsulates delegates (callable code)
             Func<float, float> square;
             square = delegate (float x) { return x * x; };
