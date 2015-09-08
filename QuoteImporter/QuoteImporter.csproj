@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DecoratorSpike.cs" />
     <Compile Include="Interfaces\IEmailler.cs" />
     <Compile Include="Interfaces\ILog.cs" />
     <Compile Include="QuoteProcessor.cs" />
