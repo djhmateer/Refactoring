@@ -10,7 +10,7 @@ namespace QuoteImporterFunctional
             // Passing in a 2 lambda expression (anonymous function) 
             // 1. which console writes
             // 2. Log
-            Action run = () => QuoteImporterLogger(() => QuoteImporter(), s => Log(s));
+            Action run = () => QuoteImporterLogger(QuoteImporter, Log);
             run();
         }
 
