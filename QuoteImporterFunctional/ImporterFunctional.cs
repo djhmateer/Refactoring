@@ -1,38 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 
 namespace QuoteImporterFunctional
 {
     public class ImporterFunctional
     {
-        // Functional style of the QuoteImporter app
+        // Functional style of the QuoteImporter app, with logging using a decorator
         private static void Main()
         {
-            Action<string> thing = x => Console.WriteLine(x);
-            thing("hello");
+            // ReadFileListOfLines is a Function which returns a List of strings
+            // passing it a lambda expression (anonymous function) which has a return type of IEnumerable<string>
+            Func<IEnumerable<string>> readFileListOfLines =
+                () => ReadFileListOfLinesLogger(ReadFileListOfLines, Log);
 
-            // Log is an Action with a string input
-            Action<string> log = s => Log(s);
-            // no side effects, so I can use the function whilst it is being composed and not being run
-            log("Main start");
+            //Func<string, Quote> parseLine = s => ParseLine(s);
+            Func<string, Quote> parseLine =
+                s => ParseLineLogger(s, ParseLine, Log);
 
-            // ReadFileListOfLines is a Function which **Takes an input..why works??** returns a List of strings
-            Func<IEnumerable<string>> readFileListOfLines = () => ReadFileListOfLines(log);
-            //Func<Action<string>, IEnumerable<string>> readFileListOfLines = x => ReadFileListOfLines(log);
-
-            Func<string, Quote> parseLine = s => ParseLine(s);
-            Action<Quote> insertQuoteIntoDatabase = quote => InsertQuoteIntoDatabase(quote);
+            Action<Quote> insertQuoteIntoDatabase = InsertQuoteIntoDatabase;
 
             // Compose the Functions together (without running them)
             // Passing in a lambda expression (anonymous function) to Action run
-            Action run = () => QuoteImporter(log, readFileListOfLines, parseLine, insertQuoteIntoDatabase);
+            Action quoteImporter = () => QuoteImporter(
+                readFileListOfLines, parseLine, insertQuoteIntoDatabase);
+
+            Action run = () => QuoteImporterLogger(
+                quoteImporter,
+                Log);
+
             run();
-            log("Main end");
+        }
+
+        public static void QuoteImporterLogger(Action quoteImporter, Action<string> log)
+        {
+            log("Start QuoteImporter");
+            quoteImporter();
+            log("End QuoteImporter");
         }
 
         // 1. Takes an Action with a string input
@@ -40,12 +46,12 @@ namespace QuoteImporterFunctional
         // 3. Takes a Function with a string input, which returns a Quote
         // 4. Takes an Action with a Quote input
         //Func<Action<string>, IEnumerable<string>> readFileListOfLines,
-        public static void QuoteImporter(Action<string> log,
+        public static void QuoteImporter(
             Func<IEnumerable<string>> readFileListOfLines,
             Func<string, Quote> parseLine,
             Action<Quote> insertQuoteIntoDatabase)
         {
-            log("QuoteImporter Start");
+            //log("QuoteImporter Start");
             // don't want to be passing in the log here again???
             //IEnumerable<string> lines = readFileListOfLines(log);
             IEnumerable<string> lines = readFileListOfLines();
@@ -54,15 +60,30 @@ namespace QuoteImporterFunctional
                 var quote = parseLine(line);
                 insertQuoteIntoDatabase(quote);
             }
-            log("QuoteImporter End");
+            //log("QuoteImporter End");
         }
 
-        public static IEnumerable<string> ReadFileListOfLines(Action<string> log)
+        public static IEnumerable<string> ReadFileListOfLinesLogger(Func<IEnumerable<string>> readFileListOfLines, Action<string> log)
         {
             log("Start ReadFileListOfLines");
-            string[] fileTextLines = File.ReadAllLines(@"..\..\quotesWithTitles.csv");
+            var result = readFileListOfLines();
+            // Easy way to view contents of IEnumerable to log
+            log($"result of ReadFileListOfLines: {string.Join(Environment.NewLine,result.Select(s => s))}");
             log("End ReadFileListOfLines");
+            return result;
+        }
+        public static IEnumerable<string> ReadFileListOfLines()
+        {
+            string[] fileTextLines = File.ReadAllLines(@"..\..\quotesWithTitles.csv");
             return fileTextLines.ToList();
+        }
+
+        public static Quote ParseLineLogger(string input, Func<string, Quote> parseLine, Action<string> log)
+        {
+            log($"Start ParseLine with input {input}");
+            Quote result = parseLine(input);
+            log($"End ParseLine with ouput {result.Title}, {result.Body}");
+            return result;
         }
 
         public static Quote ParseLine(string line)

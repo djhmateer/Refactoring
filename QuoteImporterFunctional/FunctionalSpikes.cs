@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
-using System.Runtime.Remoting.Messaging;
 
 namespace QuoteImporterFunctional
 {
@@ -17,6 +15,18 @@ namespace QuoteImporterFunctional
             // Passing a parameter to the lambda (anonymous function)
             Action<string> note2 = x => Console.WriteLine($"message is {x}");
             note2("hello2");
+
+            // Method group with the string parameter
+            Action<string> log = s => Log(s);
+            log("hello from log");
+
+            // Method group - don't need to specify the string parameter!
+            Action<string> log2 = Log;
+            log2("hello from log2");
+
+            // Anonymous method
+            Action<string> log3 = delegate(string s) { Log(s); };
+            log("hello from log3");
 
             // Function with input string, and output string
             // lambda expression taking input and returning an ouput
@@ -54,16 +64,42 @@ namespace QuoteImporterFunctional
             // Passing lambda expression (anonymous method) into QuoteImporter
             Action runProcessing2 = () => RunProcessing(x => Console.WriteLine($"log2: {x}"));
             runProcessing2();
+
+            // Logging using a decorator
+            // Action is like a function which can take parameters but doesn't return anything.
+            // Passing in 2 method group QuoteImporter, Log
+            // Passing in 2 lambda expression (anonymous function)  () => QuoteImporter, s => Log(s)
+            // Passing in 2 anonymous methods delegate() { QuoteImporter(); }, delegate(string s) {Log(s);};
+
+            // 1. which console writes
+            // 2. Log
+            Action run = () => QuoteImporterLogger(QuoteImporter, Log);
+            run();
         }
 
-        public static void RunProcessing(Action<string> log)
+        public static void QuoteImporterLogger(Action quoteImporter, Action<string> log)
         {
-            log("test");
+            log("Start QuoteImporter");
+            quoteImporter();
+            log("End QuoteImporter");
+        }
+
+        // Don't want logging code cluttering up
+        public static void QuoteImporter()
+        {
+            Console.WriteLine("In QuoteImporter");
         }
 
         public static void Log(string message)
         {
-            Console.WriteLine("log1: {0}", message);
+            Console.WriteLine($"log: {message}");
+        }
+
+
+
+        public static void RunProcessing(Action<string> log)
+        {
+            log("test");
         }
     }
 }

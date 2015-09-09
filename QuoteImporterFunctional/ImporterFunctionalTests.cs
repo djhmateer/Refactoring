@@ -9,17 +9,17 @@ namespace QuoteImporterFunctional
     public class ImporterFunctionalTests
     {
         // 1. Static functions
-        [Fact]
-        public void ReadFileList_x_ShouldReturnListOfLines()
-        {
-            // mocking out log
-            // Action is a delegate which doesn't return a value
-            // Passing in an lambda (anonymous function) which does nothing
-            Action<string> log = s => { };
+        //[Fact]
+        //public void ReadFileList_x_ShouldReturnListOfLines()
+        //{
+        //    // mocking out log
+        //    // Action is a delegate which doesn't return a value
+        //    // Passing in an lambda (anonymous function) which does nothing
+        //    Action<string> log = s => { };
 
-            IEnumerable<string> result = ImporterFunctional.ReadFileListOfLines(log);
-            Assert.Equal(3, result.Count());
-        }
+        //    IEnumerable<string> result = ImporterFunctional.ReadFileListOfLines(log);
+        //    Assert.Equal(3, result.Count());
+        //}
 
         [Fact]
         public void ParseLine_AValidLine_ShouldReturnQuote()
@@ -51,55 +51,55 @@ namespace QuoteImporterFunctional
         // 2. Testing the main function - GetProcessing which has 4 dependencies 
         // mocking out the dependencies, and testing what this main function
         // does to it's dependencies
-        [Fact]
-        public void RunProcessing_GivenQuoteMock_ShouldInsertIntoMockDatabase()
-        {
-            // mocking out QuoteImporter's 4 dependencies
-            // Action is a delegate which doesn't return a value
-            // Passing in an anonymous function which does nothing
-            Action<string> log = x => { };
+        //[Fact]
+        //public void RunProcessing_GivenQuoteMock_ShouldInsertIntoMockDatabase()
+        //{
+        //    // mocking out QuoteImporter's 4 dependencies
+        //    // Action is a delegate which doesn't return a value
+        //    // Passing in an anonymous function which does nothing
+        //    Action<string> log = x => { };
 
-            // mock file reader
-            string actualLineFromFile = "";
-            Func<IEnumerable<string>> readFileListOfLines = delegate
-            {
-                var listOfLines = new[] { "title, quote here" };
-                actualLineFromFile = listOfLines[0];
-                return listOfLines;
-            };
+        //    // mock file reader
+        //    string actualLineFromFile = "";
+        //    Func<IEnumerable<string>> readFileListOfLines = delegate
+        //    {
+        //        var listOfLines = new[] { "title, quote here" };
+        //        actualLineFromFile = listOfLines[0];
+        //        return listOfLines;
+        //    };
 
-            // mock the parser
-            string actualLineSentToParser = "";
-            Func<string, Quote> parseLine = delegate (string s)
-            {
-                actualLineSentToParser = s;
-                var quote = new Quote { Title = "title2", Body = "quote here2" };
-                return quote;
-            };
+        //    // mock the parser
+        //    string actualLineSentToParser = "";
+        //    Func<string, Quote> parseLine = delegate (string s)
+        //    {
+        //        actualLineSentToParser = s;
+        //        var quote = new Quote { Title = "title2", Body = "quote here2" };
+        //        return quote;
+        //    };
 
-            // Mock the database insert
-            // using a closure
-            IList<Quote> actualQuotes = new List<Quote>();
-            Action<Quote> insertQuoteIntoDatabase = quote =>
-            {
-                actualQuotes.Add(quote);
-            };
+        //    // Mock the database insert
+        //    // using a closure
+        //    IList<Quote> actualQuotes = new List<Quote>();
+        //    Action<Quote> insertQuoteIntoDatabase = quote =>
+        //    {
+        //        actualQuotes.Add(quote);
+        //    };
 
-            // compose.  Action is a delegate - doesn't return anything
-            Action run = () => ImporterFunctional.QuoteImporter(log,
-                readFileListOfLines, parseLine, insertQuoteIntoDatabase);
-            run();
+        //    // compose.  Action is a delegate - doesn't return anything
+        //    Action run = () => ImporterFunctional.QuoteImporter(log,
+        //        readFileListOfLines, parseLine, insertQuoteIntoDatabase);
+        //    run();
 
-            // Testing the mock reader is in the state we expect
-            Assert.Equal("title, quote here", actualLineFromFile);
+        //    // Testing the mock reader is in the state we expect
+        //    Assert.Equal("title, quote here", actualLineFromFile);
 
-            // Testing the mock parser is in the state we expect
-            Assert.Equal("title, quote here", actualLineSentToParser);
+        //    // Testing the mock parser is in the state we expect
+        //    Assert.Equal("title, quote here", actualLineSentToParser);
 
-            // Testing the mock database is in the state we expect
-            Assert.Equal("title2", actualQuotes[0].Title);
-            Assert.Equal("quote here2", actualQuotes[0].Body);
-        }
+        //    // Testing the mock database is in the state we expect
+        //    Assert.Equal("title2", actualQuotes[0].Title);
+        //    Assert.Equal("quote here2", actualQuotes[0].Body);
+        //}
 
         //[Fact]
         //public void RunProcessingShouldLog()
