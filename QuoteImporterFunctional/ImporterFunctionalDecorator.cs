@@ -22,14 +22,14 @@ namespace QuoteImporterFunctional
             //string result = thing("test");
             //Console.WriteLine(result);
 
-            Func<string, string> run = s => ParseLineLogger(s, ParseLine, Log);
-            run("blah");
+            Func<string, string> run = line => ParseLineLogger(ParseLine, Log, line);
+            string result = run("blah");
         }
 
-        public static string ParseLineLogger(string input, Func<string, string> parseLine, Action<string> log)
+        public static string ParseLineLogger(Func<string, string> parseLine, Action<string> log, string line)
         {
-            Console.WriteLine($"Start ParseLine with input {input}");
-            string result = parseLine(input);
+            Console.WriteLine($"Start ParseLine with line: {line}");
+            string result = parseLine(line);
             Console.WriteLine($"Result: {result}");
             Console.WriteLine("End ParseLine");
             return result;
