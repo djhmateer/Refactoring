@@ -11,26 +11,33 @@ namespace QuoteImporterFunctional
         // Functional style of the QuoteImporter app, with logging using a decorator
         private static void Main()
         {
-            // ReadFileListOfLines is a Function which returns a List of strings
-            // passing it a lambda expression (anonymous function) which has a return type of IEnumerable<string>
+            // ReadFileListOfLines is a function with 0 Parameters, which returns a List of strings
+            // passing it a lambda expression (anonymous function)
+            // Log takes 1 parameter s
+            // ReadFileListOfLines takes 0 parameters
+            // returns a string
             Func<IEnumerable<string>> readFileListOfLines =
-                () => ReadFileListOfLinesLogger(ReadFileListOfLines, Log);
+                () => ReadFileListOfLinesLogger(() => ReadFileListOfLines(), s => Log(s));
 
-            //Func<string, Quote> parseLine = s => ParseLine(s);
-            Func<string, Quote> parseLine =
-                s => ParseLineLogger(s, ParseLine, Log);
+            // ParseLine takes 1 Parameter string s, which is wired up to lineToParse
+            // using method group - don't need to specify s => Log(s)
+            // returns a Quote
+            Func<string, Quote> parseLine = 
+                lineToParse => ParseLineLogger(s => ParseLine(s), Log, lineToParse);
 
-            Action<Quote> insertQuoteIntoDatabase = InsertQuoteIntoDatabase;
+            // InsertQuoteIntoDatabase takes 1 parameter Quote
+            // returns nothing (therefore its an Action)
+            // quote is wired up to q in the logger
+            Action<Quote> insertQuoteIntoDatabase =
+                quote => InsertQuoteIntoDatabaseLogger(q => InsertQuoteIntoDatabase(q), Log, quote);
 
             // Compose the Functions together (without running them)
             // Passing in a lambda expression (anonymous function) to Action run
-            Action quoteImporter = () => QuoteImporter(
-                readFileListOfLines, parseLine, insertQuoteIntoDatabase);
+            Action quoteImporter = 
+                () => QuoteImporter(readFileListOfLines, parseLine, insertQuoteIntoDatabase);
 
-            Action run = () => QuoteImporterLogger(
-                quoteImporter,
-                Log);
-
+            // Decorating logging in the top level function (but not this composition root function)
+            Action run = () => QuoteImporterLogger(quoteImporter,Log);
             run();
         }
 
@@ -41,29 +48,25 @@ namespace QuoteImporterFunctional
             log("End QuoteImporter");
         }
 
-        // 1. Takes an Action with a string input
-        // 2. Takes a Function with no input**why does this work??, which returns a list of strings
-        // 3. Takes a Function with a string input, which returns a Quote
-        // 4. Takes an Action with a Quote input
+        // 1. Takes an Action with a string lineToParse
+        // 2. Takes a Function with no lineToParse**why does this work??, which returns a list of strings
+        // 3. Takes a Function with a string lineToParse, which returns a Quote
+        // 4. Takes an Action with a Quote lineToParse
         //Func<Action<string>, IEnumerable<string>> readFileListOfLines,
         public static void QuoteImporter(
-            Func<IEnumerable<string>> readFileListOfLines,
-            Func<string, Quote> parseLine,
+            Func<IEnumerable<string>> readFileListOfLines,Func<string, Quote> parseLine,
             Action<Quote> insertQuoteIntoDatabase)
         {
-            //log("QuoteImporter Start");
-            // don't want to be passing in the log here again???
-            //IEnumerable<string> lines = readFileListOfLines(log);
             IEnumerable<string> lines = readFileListOfLines();
             foreach (var line in lines)
             {
                 var quote = parseLine(line);
                 insertQuoteIntoDatabase(quote);
             }
-            //log("QuoteImporter End");
         }
 
-        public static IEnumerable<string> ReadFileListOfLinesLogger(Func<IEnumerable<string>> readFileListOfLines, Action<string> log)
+        public static IEnumerable<string> ReadFileListOfLinesLogger(
+            Func<IEnumerable<string>> readFileListOfLines, Action<string> log)
         {
             log("Start ReadFileListOfLines");
             var result = readFileListOfLines();
@@ -72,16 +75,18 @@ namespace QuoteImporterFunctional
             log("End ReadFileListOfLines");
             return result;
         }
+
         public static IEnumerable<string> ReadFileListOfLines()
         {
             string[] fileTextLines = File.ReadAllLines(@"..\..\quotesWithTitles.csv");
             return fileTextLines.ToList();
         }
 
-        public static Quote ParseLineLogger(string input, Func<string, Quote> parseLine, Action<string> log)
+        public static Quote ParseLineLogger(
+            Func<string, Quote> parseLine, Action<string> log, string lineToParse)
         {
-            log($"Start ParseLine with input {input}");
-            Quote result = parseLine(input);
+            log($"Start ParseLine with input {lineToParse}");
+            Quote result = parseLine(lineToParse);
             log($"End ParseLine with ouput {result.Title}, {result.Body}");
             return result;
         }
@@ -102,14 +107,22 @@ namespace QuoteImporterFunctional
             return new Quote{Title = title,Body = body};
         }
 
+
+        public static void InsertQuoteIntoDatabaseLogger(
+            Action<Quote> insertQuoteIntoDatabase,Action<string> log, Quote quote)
+        {
+            log($"Start InsertQuoteIntoDatabase with input {quote.Title} {quote.Body}");
+            insertQuoteIntoDatabase(quote);
+            log($"End InsertQuoteIntoDatabase");
+        }
+
         private static void InsertQuoteIntoDatabase(Quote quote)
         {
             string connectionString =
                 @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Dev\Refactoring\Refactoring\Database1.mdf;Integrated Security=True";
             using (var connection = new SqlConnection(connectionString))
             {
-                var cmd = new SqlCommand("INSERT INTO Quotes (Title, Text) VALUES (@Title, @Quote)");
-                cmd.Connection = connection;
+                var cmd = new SqlCommand("INSERT INTO Quotes (Title, Text) VALUES (@Title, @Quote)", connection);
                 cmd.Parameters.AddWithValue("@Title", quote.Title);
                 cmd.Parameters.AddWithValue("@Quote", quote.Body);
                 connection.Open();

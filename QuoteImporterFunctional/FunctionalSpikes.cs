@@ -65,14 +65,12 @@ namespace QuoteImporterFunctional
             Action runProcessing2 = () => RunProcessing(x => Console.WriteLine($"log2: {x}"));
             runProcessing2();
 
-            // Logging using a decorator
+            // Logging using a decorator - passing 0 parameters to
             // Action is like a function which can take parameters but doesn't return anything.
             // Passing in 2 method group QuoteImporter, Log
             // Passing in 2 lambda expression (anonymous function)  () => QuoteImporter, s => Log(s)
             // Passing in 2 anonymous methods delegate() { QuoteImporter(); }, delegate(string s) {Log(s);};
 
-            // 1. which console writes
-            // 2. Log
             Action run = () => QuoteImporterLogger(QuoteImporter, Log);
             run();
         }

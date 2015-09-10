@@ -5,24 +5,13 @@ namespace QuoteImporterFunctional
     // A spike to get decorator working
     public class ImporterFunctionalDecorator
     {
+        // Logging using a decorator - passing in 1 parameter
         private static void Main()
         {
-            // Action is like a function which can take parameters but doesn't return anything.
-            // Passing in 2 method group QuoteImporter, Log
-            // Passing in 2 lambda expression (anonymous function)  () => QuoteImporter, s => Log(s)
-            // Passing in 2 anonymous methods delegate() { QuoteImporter(); }, delegate(string s) {Log(s);};
-
-            // 1. which console writes
-            // 2. Log
-            //Action run = () => QuoteImporterLogger(QuoteImporter, Log);
-            //run();
-
-            // test out another function with different signature ie returns something
-            //Func<string, string> thing = s => ParseLine(s);
-            //string result = thing("test");
-            //Console.WriteLine(result);
-
-            Func<string, string> run = line => ParseLineLogger(ParseLine, Log, line);
+            // Function - given a string, return a string.
+            // s and t represent the inbound parameters into ParseLine and Log (not needed)
+            // line is inbound parameter into ParseLineLogger
+            Func<string, string> run = line => ParseLineLogger(s => ParseLine(s), t => Log(t), line);
             string result = run("blah");
         }
 
@@ -38,19 +27,6 @@ namespace QuoteImporterFunctional
         public static string ParseLine(string line)
         {
             return line + " ok";
-        }
-
-        public static void QuoteImporterLogger(Action quoteImporter, Action<string> log)
-        {
-            log("Start QuoteImporter");
-            quoteImporter();
-            log("End QuoteImporter");
-        }
-
-        // Don't want logging code cluttering up
-        public static void QuoteImporter()
-        {
-            Console.WriteLine("In QuoteImporter");
         }
 
         public static void Log(string message)
