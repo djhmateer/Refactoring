@@ -36,7 +36,7 @@ namespace QuoteImporterFunctional
             Action quoteImporter = 
                 () => QuoteImporter(readFileListOfLines, parseLine, insertQuoteIntoDatabase);
 
-            // Decorating logging in the top level function (but not this composition root function)
+            // Decorating logging in the top level function (but no logging in this composition root function)
             Action run = () => QuoteImporterLogger(quoteImporter,Log);
             run();
         }
@@ -48,13 +48,10 @@ namespace QuoteImporterFunctional
             log("End QuoteImporter");
         }
 
-        // 1. Takes an Action with a string lineToParse
-        // 2. Takes a Function with no lineToParse**why does this work??, which returns a list of strings
-        // 3. Takes a Function with a string lineToParse, which returns a Quote
-        // 4. Takes an Action with a Quote lineToParse
-        //Func<Action<string>, IEnumerable<string>> readFileListOfLines,
+        // Top level function, which depends upon 3 other functions (passed in as parameters)
         public static void QuoteImporter(
-            Func<IEnumerable<string>> readFileListOfLines,Func<string, Quote> parseLine,
+            Func<IEnumerable<string>> readFileListOfLines,
+            Func<string, Quote> parseLine,
             Action<Quote> insertQuoteIntoDatabase)
         {
             IEnumerable<string> lines = readFileListOfLines();
@@ -65,6 +62,7 @@ namespace QuoteImporterFunctional
             }
         }
 
+        // 1 ReadFile List
         public static IEnumerable<string> ReadFileListOfLinesLogger(
             Func<IEnumerable<string>> readFileListOfLines, Action<string> log)
         {
@@ -82,6 +80,7 @@ namespace QuoteImporterFunctional
             return fileTextLines.ToList();
         }
 
+        // 2 ParseLine
         public static Quote ParseLineLogger(
             Func<string, Quote> parseLine, Action<string> log, string lineToParse)
         {
@@ -107,7 +106,7 @@ namespace QuoteImporterFunctional
             return new Quote{Title = title,Body = body};
         }
 
-
+        // 3 InsertQuote
         public static void InsertQuoteIntoDatabaseLogger(
             Action<Quote> insertQuoteIntoDatabase,Action<string> log, Quote quote)
         {
