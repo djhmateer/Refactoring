@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DelegateSpike.cs" />
     <Compile Include="FunctionalSpikes.cs" />
     <Compile Include="ImporterFunctionalDecorator.cs" />
     <Compile Include="ImporterFunctionalSimpleArch.cs" />

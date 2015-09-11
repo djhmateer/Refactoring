@@ -9,9 +9,11 @@ namespace QuoteImporterFunctional
     public class ImporterFunctional
     {
         // Functional style of the QuoteImporter app, with logging using a decorator
+        // Firstly decorate each separate function (1,2,3) with it's logger
+        // Then compose together, decorating that top level function too
         private static void Main()
         {
-            // ReadFileListOfLines is a function with 0 Parameters, which returns a List of strings
+            // 1. ReadFileListOfLines is a function with 0 Parameters, which returns a List of strings
             // passing it a lambda expression (anonymous function)
             // Log takes 1 parameter s
             // ReadFileListOfLines takes 0 parameters
@@ -19,13 +21,13 @@ namespace QuoteImporterFunctional
             Func<IEnumerable<string>> readFileListOfLines =
                 () => ReadFileListOfLinesLogger(() => ReadFileListOfLines(), s => Log(s));
 
-            // ParseLine takes 1 Parameter string s, which is wired up to lineToParse
+            // 2. ParseLine takes 1 Parameter string s, which is wired up to lineToParse
             // using method group - don't need to specify s => Log(s)
             // returns a Quote
             Func<string, Quote> parseLine = 
                 lineToParse => ParseLineLogger(s => ParseLine(s), Log, lineToParse);
 
-            // InsertQuoteIntoDatabase takes 1 parameter Quote
+            // 3. InsertQuoteIntoDatabase takes 1 parameter Quote
             // returns nothing (therefore its an Action)
             // quote is wired up to q in the logger
             Action<Quote> insertQuoteIntoDatabase =
