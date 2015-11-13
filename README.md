@@ -1,12 +1,4 @@
 # Refactoring Basics
-davemateer@gmail.com
-github.com/djhmateer/refactoring (links at end too)
-- plan
- - define
- - simple local steps..building on a quote loader
- - architectural..finshing with a well factored quote loader
-
-### please heckle anytime!  I want to know what you're thinking!
 
 ###whiteboard
 
