@@ -1,26 +1,16 @@
+
+
+
 # Refactoring Basics
 
-###whiteboard
 
 ##What is Refactoring?
->Refactoring is the process of making code better
->without modifying its external behavior. 
-
-
-
-
+>Refactoring is the process of making code better without modifying its external behavior. 
 
 ###What do I mean by 'better'?
 - Easier to understand (less WTF's per minute)
 - Easier to test
 - More pleasing
-
-
-
-
-
-
-
 
 # Part 1 - Simple Refactoring Techniques
 
@@ -72,8 +62,6 @@ Summary so far
 ..with logging, emailling, and more tests
 
 # Part2 - design
-visio
-
 
 ###10 Favour composition
     why?
@@ -94,21 +82,7 @@ visio
 - Test
 - Favour composition
 
-www.github.com/djhmateer/refactoring
-
-
-
 # Thoughts???
-
-
-
-
-
-
-
-
-
-
 
 ### Show other programmers your code!
   The act of explaining...
