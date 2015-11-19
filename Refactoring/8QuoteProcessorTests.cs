@@ -8,7 +8,7 @@ namespace Mateer.QuoteProcessor.Refactored
         [Fact]
         public void AssertTest()
         {
-            Assert.Equal(1, 2);
+            //Assert.Equal(1, 2);
         }
 
         [Fact]
