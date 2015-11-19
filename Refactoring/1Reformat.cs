@@ -7,6 +7,7 @@ namespace Mateer.Reformat
 {
     public class Program
     {
+        asdf
         public static void Main(string[] args)
         {
             var reading = File.ReadAllLines(@"..\..\quotes.csv");
