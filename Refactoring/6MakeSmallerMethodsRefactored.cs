@@ -11,7 +11,7 @@ namespace Mateer.MakeSmallerMethods.Refactored
             var lines = File.ReadAllLines(@"..\..\quotesWithTitles.csv");
             foreach (var line in lines)
             {
-                var quote = ParseLine(line);
+                Quote quote = ParseLine(line);
                 InsertQuoteIntoDatabase(quote);
             }
         }
