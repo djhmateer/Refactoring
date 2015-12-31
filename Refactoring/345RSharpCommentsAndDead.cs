@@ -2,11 +2,8 @@
 using System.Data.SqlClient;
 using System.IO;
 
-// R# Suggestions, Comments and DeadCode
-// Comments - make things as easy as possible for the code to be maintained
 namespace Mateer.RSharpCommentsAndDeadCode
 {
-    // Why?
     // This Console App is run from a scheduled task nightly on the App server
     // to import in dumped files which the Oracle team put there
     // It should try each line independently and be resilient if the line fails to parse
