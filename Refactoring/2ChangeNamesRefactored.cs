@@ -16,8 +16,7 @@ namespace Mateer.ChangeNames.Refactored
 
         static void WriteToConsoleInAppropriateColour(string quote)
         {
-            bool isLongQuote = false;
-            if (quote.Length > 70) isLongQuote = true;
+            bool isLongQuote = quote.Length > 70;
 
             if (isLongQuote)
                 Console.ForegroundColor = ConsoleColor.Red;
