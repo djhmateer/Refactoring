@@ -19,8 +19,9 @@
             //6
             //MakeSmallerMethods.ETL.ReadFromAFileAndDisplayQuote();
 
-            QuoteProcessor.ETL.Main();
-            QuoteProcessor.Refactored.QuoteProcessor.Main();
+            //QuoteProcessor.ETL.Main();
+            //QuoteProcessor.Refactored.QuoteProcessor.Main();
+            Mateer.RSharpCommentsAndDeadCode.ETL.ReadFromAFileAndDisplayQuote();
         }
     }
 }
