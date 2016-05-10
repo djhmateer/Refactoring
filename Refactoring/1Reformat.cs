@@ -20,6 +20,10 @@ public class Program
             Console.WriteLine(readingaline);
         }
     }
+
+
+
+
 }
 }
 
