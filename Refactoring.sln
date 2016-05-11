@@ -14,6 +14,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuoteImporter", "QuoteImpor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuoteImporterFunctional", "QuoteImporterFunctional\QuoteImporterFunctional.csproj", "{64128FAE-F27B-461B-9934-93FBD075E8BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RefactoringLSCC", "RefactoringLSCC\RefactoringLSCC.csproj", "{F1010EFE-868D-44C0-815C-A575E0FC50AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{64128FAE-F27B-461B-9934-93FBD075E8BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64128FAE-F27B-461B-9934-93FBD075E8BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64128FAE-F27B-461B-9934-93FBD075E8BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1010EFE-868D-44C0-815C-A575E0FC50AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1010EFE-868D-44C0-815C-A575E0FC50AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1010EFE-868D-44C0-815C-A575E0FC50AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1010EFE-868D-44C0-815C-A575E0FC50AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
