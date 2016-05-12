@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Xunit;
+// ReSharper disable ConditionIsAlwaysTrueOrFalse
 
 namespace RefactoringLSCC
 {
@@ -9,7 +10,7 @@ namespace RefactoringLSCC
         {
             string strTrimmed = strInput.Replace(" ", "");
             string strReversed = new string(strTrimmed.Reverse().ToArray());
-            return strReversed.Equals(strReversed);
+            return strTrimmed.Equals(strReversed);
         }
 
         public bool Check(string input)
@@ -33,7 +34,7 @@ namespace RefactoringLSCC
         public void Not_a_palindrome()
         {
             var p = new PalindromeTester();
-            var result = p.Check("hello");
+            var result = p.Test("hello");
             Assert.False(result);
         }
 
@@ -41,7 +42,7 @@ namespace RefactoringLSCC
         public void A_palindrome()
         {
             var p = new PalindromeTester();
-            var result = p.Check("noon");
+            var result = p.Test("noon");
             Assert.True(result);
         }
 
@@ -53,7 +54,7 @@ namespace RefactoringLSCC
         public void Palindrome_sentences(string input, bool expected)
         {
             var p = new PalindromeTester();
-            var result = p.IsPalindrome(input);
+            var result = p.Test(input);
             Assert.Equal(expected, result);
         }
     }
