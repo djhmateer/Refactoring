@@ -34,7 +34,7 @@ namespace RefactoringLSCC
         public void Not_a_palindrome()
         {
             var p = new PalindromeTester();
-            var result = p.Test("hello");
+            var result = p.IsPalindrome("hello");
             Assert.False(result);
         }
 
@@ -42,7 +42,7 @@ namespace RefactoringLSCC
         public void A_palindrome()
         {
             var p = new PalindromeTester();
-            var result = p.Test("noon");
+            var result = p.IsPalindrome("noon");
             Assert.True(result);
         }
 
@@ -54,7 +54,7 @@ namespace RefactoringLSCC
         public void Palindrome_sentences(string input, bool expected)
         {
             var p = new PalindromeTester();
-            var result = p.Test(input);
+            var result = p.IsPalindrome(input);
             Assert.Equal(expected, result);
         }
     }
