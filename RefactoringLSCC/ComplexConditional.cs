@@ -67,10 +67,7 @@ namespace RefactoringLSCC
         public double GetShippingCost(Order order)
         {
             double shipping;
-            if (LargeOrImportantOrder(order))
-                shipping = DiscountShippingRate(order);
-            else
-                shipping = NormalShippingRate(order);
+            shipping = LargeOrImportantOrder(order) ? DiscountShippingRate(order) : NormalShippingRate(order);
             return shipping;
         }
 
